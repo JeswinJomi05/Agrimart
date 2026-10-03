@@ -1,0 +1,8 @@
+Tool: built-in image_gen (edit mode)
+Sources: shop/1.jpg through shop/6.jpg, each enhanced separately.
+Outputs: shop/1-enhanced-v2.png and shop/2-enhanced.png through shop/6-enhanced.png.
+Website copies: corresponding .jpg files, encoded at quality 93 without resizing.
+Original files and the earlier shop/1-enhanced.png are preserved.
+
+Final prompt used for each source:
+Enhance and upscale this exact shop photograph for the Inside Agrimart website gallery. Improve resolution, clarity, compression artifacts, natural sharpness, exposure, and white balance. Preserve the original framing and aspect ratio, actual store layout, equipment, products, people, vehicles, signage, logos and all readable text exactly as in the reference. Do not redesign, rearrange, remove or add objects. Do not invent lettering or product details. Keep realistic photographic texture and natural colors; no stylization or excessive sharpening. Output a single high-resolution faithful restored photo, with the long edge approximately 2048 pixels.

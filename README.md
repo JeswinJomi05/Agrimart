@@ -65,3 +65,12 @@ The component displays one animated column on mobile, two on medium screens, and
 Original logo, hero and equipment images are in `assets/`. The optimized tractor banner is `assets/field-banner.jpg`; the original is preserved. The storefront photo is `public/images/store.png`.
 
 No backend, phone number, detailed inventory or verified customer reviews were supplied. Contact and category dialogs provide general information without inventing prices or availability.
+
+
+### Interactive bento gallery
+
+The reusable gallery lives in `src/components/ui/bento-gallery.tsx` and is integrated into the Inside Agrimart section with local showroom photos. `src/components/bento-gallery-demo.tsx` exports a standalone landscape demo using Unsplash images.
+
+This project already supports TypeScript, Tailwind CSS, and the shadcn component structure. `@/components/ui` resolves to `src/components/ui`; styles and theme tokens live in `src/index.css`, with site styles in `src/App.css`. Keep reusable UI components in that folder so shadcn tooling and alias imports resolve consistently. No additional setup or dependency installation is required: `framer-motion`, `lucide-react`, and the `cn` utility are already available.
+
+Pass `imageItems` (each with `id`, `title`, `desc`, `url`, and Tailwind `span` classes), `title`, and `description`. The component owns its selection and drag state and needs no context provider. The Inside Agrimart section uses `layout="grid"` to show all six photos in three columns on desktop, two on tablets, and one on phones. The default `layout="drag"` retains the two-row draggable bento layout for the standalone demo. Images open in a modal with keyboard focus containment, Escape dismissal, and focus restoration.

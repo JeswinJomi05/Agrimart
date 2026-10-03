@@ -8,7 +8,14 @@ import water from '../assets/Product image-3.png'
 import engines from '../assets/Product image-4.png'
 import other from '../assets/Product image-5.png'
 import field from '../assets/field-banner.jpg'
+import showroom from '../shop/1-enhanced-v2.jpg'
+import brushCutters from '../shop/2-enhanced.jpg'
+import storefront from '../shop/3-enhanced.jpg'
+import gardenTools from '../shop/4-enhanced.jpg'
+import chainsaws from '../shop/5-enhanced.jpg'
+import powerEquipment from '../shop/6-enhanced.jpg'
 import './App.css'
+import InteractiveImageBentoGallery from './components/ui/bento-gallery'
 import TestimonialsSection from './components/ui/testimonial-v2'
 import { useScrollMotion } from './hooks/useScrollMotion'
 
@@ -19,6 +26,15 @@ const categories = [
   { id: 'water', image: water, name: 'Water & Irrigation', lines: ['Water &', 'Irrigation'], description: 'Water pumps and irrigation equipment for efficient water management.' },
   { id: 'engines', image: engines, name: 'Engines & Power Equipment', lines: ['Engines &', 'Power Equipment'], description: 'Generators and engines for reliable power when you need it.' },
   { id: 'other', image: other, name: 'Other Equipment', lines: ['Other Equipment'], description: 'Explore more equipment for your farm, home and business.' },
+]
+
+const shopPhotos = [
+  { image: showroom, caption: 'Inside our showroom', alt: 'Agrimart showroom aisle with machinery and supplies on both sides' },
+  { image: storefront, caption: 'Our Wayanad store', alt: 'Agrimart storefront with equipment signs beside the road in Wayanad' },
+  { image: brushCutters, caption: 'Brush cutters', alt: 'Brush cutters displayed on the wall inside Agrimart' },
+  { image: gardenTools, caption: 'Garden tools', alt: 'Rakes, brooms and hand tools on the Agrimart garden tools display' },
+  { image: chainsaws, caption: 'Chainsaws & accessories', alt: 'Chainsaws and accessories on shelves inside Agrimart' },
+  { image: powerEquipment, caption: 'Power equipment', alt: 'Generators and power equipment along an Agrimart showroom aisle' },
 ]
 
 function ArrowIcon() {
@@ -129,8 +145,6 @@ function App() {
           <div className="hero-bottom"><span>GROW WITH CONFIDENCE</span><div className="slide-controls"><button aria-label="Previous banner" onClick={() => setSlide((slide + 1) % slides.length)}>←</button>{slides.map((_, index) => <button className={`slide-dot ${slide === index ? 'selected' : ''}`} key={index} aria-label={`Show banner ${index + 1}`} aria-pressed={slide === index} onClick={() => setSlide(index)} />)}<button aria-label="Next banner" onClick={() => setSlide((slide + 1) % slides.length)}>→</button></div><span>0{slide + 1} / 02</span></div>
         </section>
 
-        <a className="catalog-tab" href="#products">Explore the catalog <ArrowIcon /></a>
-
         <section className="highlights section-container" aria-labelledby="highlights-title">
           <div className="section-heading" data-reveal><div><p className="section-label">Ready for the work ahead</p><h2 id="highlights-title">A tool for every ambition.</h2></div><span className="heading-note">From your backyard to your biggest field.</span></div>
           <div className="highlight-grid">
@@ -168,7 +182,7 @@ function App() {
         <section className="about" id="about" aria-labelledby="about-title">
           <div className="section-container">
             <div className="about-grid" data-reveal>
-              <div className="about-visual"><img className="store-image" src="/images/store.png" alt="Agrimart Wayanad storefront" width="245" height="139" loading="lazy" /><span className="about-stamp">SINCE<br /><b>2010</b><br />WAYANAD, KERALA</span></div>
+              <div className="about-visual"><img className="store-image" src={showroom} alt="Agrimart showroom aisle with equipment and supplies on both sides" width="970" height="1621" loading="lazy" /></div>
               <div className="about-copy">
                 <p className="section-label">Local roots. Lasting relationships.</p>
                 <h2 id="about-title">Your field.<br />Our commitment.</h2>
@@ -176,6 +190,18 @@ function App() {
                 <button className="text-button" onClick={() => openPanel('contact')}>Meet your local equipment partner <ArrowIcon /></button>
               </div>
             </div>
+            <InteractiveImageBentoGallery
+              title="Inside Agrimart."
+              layout="grid"
+              description="Explore our showroom, equipment and garden tools. Click any photo to expand."
+              imageItems={shopPhotos.map(photo => ({
+                id: photo.image,
+                title: photo.caption,
+                desc: photo.alt,
+                url: photo.image,
+                span: '',
+              }))}
+            />
           </div>
         </section>
 

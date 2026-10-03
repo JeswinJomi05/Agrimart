@@ -1,0 +1,4 @@
+Tool: built-in image_gen
+Source: shop/1.jpg
+Prompt:
+Edit target: attached original shop/1.jpg showroom photograph. Enhance clarity and resolution for an About section website image. Reduce JPEG artifacts and noise, carefully sharpen equipment and shelf edges, improve natural contrast and white balance, recover highlights around ceiling lamps modestly. Preserve the exact showroom, aisle, shelves, equipment, boxes, ceiling fan, lights, perspective, framing and portrait aspect ratio. Keep all objects in their original positions and retain original signage without inventing legible text. Natural faithful photographic restoration only, no rearranging, no new objects, no stylization, no watermark. Output a high resolution portrait image.
