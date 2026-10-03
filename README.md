@@ -1,39 +1,67 @@
 ﻿# Agrimart Wayanad
 
-A responsive React landing page recreated from the supplied `1.png` design, using original artwork from `assets/`.
+A React 19, TypeScript and Vite website with a full-width agricultural equipment catalog, native information dialogs and scroll animations.
 
 ## Development
 
-- `npm install`
-- `npm run dev` — development server
-- `npm run build` — TypeScript checks and production output in `dist/`
-- `npm run lint` — ESLint checks
-- `npm run preview` — preview the production build
+```sh
+npm install
+npm run dev
+npm run build
+npm run lint
+```
 
-## Structure
+## Components and styles
 
-The project uses React 19, TypeScript and Vite 8. It is a client-side application; no backend, database, authentication or product API is present.
+- `src/components/ui/testimonial-v2.tsx`: reusable testimonial section adapted from the supplied scrolling-column component.
+- `src/components/demo.tsx`: standalone demo with a section-scoped light/dark toggle.
+- `src/lib/utils.ts`: shadcn-compatible `cn()` helper using clsx and tailwind-merge.
+- `src/App.tsx`: website sections, catalog search/filter state and dialogs. The testimonial component replaces the former static review grid.
+- `src/App.css`: website layout and responsive styles.
+- `src/index.css`: Tailwind v4 theme/utilities, Agrimart color tokens and base styles. Preflight is omitted to preserve existing styling; legacy resets are in the base layer so component utilities work.
+- `src/hooks/useScrollMotion.ts`: native-scroll progress and hero parallax.
 
-- `src/main.tsx`: React entry point.
-- `src/App.tsx`: semantic header, navigation, hero, product category grid, About section and native dialogs. React state controls the mobile menu and selected dialog.
-- `src/App.css`: layout, interactive states and responsive styles. Desktop proportions follow the 1440px hero artwork and the scaled reference; container-relative units prevent the layout from expanding beyond its maximum width.
-- `src/index.css`: base typography, reset, focus styles and reduced-motion support.
-- `assets/`: original logo, hero landscape, six transparent product images and an additional tractor photograph. Assets are imported directly so Vite bundles and fingerprints them.
-- `public/images/store.png`: storefront photo extracted from `1.png`, because an original storefront image was not supplied in `assets/`.
-- `index.html`: page metadata and entry point.
-- `public/agrimart.svg`: favicon.
-- `vite.config.ts`, `tsconfig*.json`, `eslint.config.js`: tooling configuration.
+The `@/` alias resolves to `src/` in both Vite and TypeScript. Therefore the project's `/components/ui` convention maps to `src/components/ui`, imported as `@/components/ui/...`. Keeping reusable UI here gives the shadcn CLI and developers a consistent destination and keeps it separate from page composition. `components.json` configures these aliases and the stylesheet location.
 
-## UI
+## Tailwind and shadcn setup
 
-All headings, descriptions, category labels and controls are live HTML. The hero uses the original 1440×500 landscape with a CSS gradient for text contrast. The six category images use the original transparent PNGs.
+TypeScript was already installed. Tailwind v4 and its Vite plugin are now configured, alongside framer-motion, lucide-react, clsx and tailwind-merge. No context provider is required.
 
-Desktop includes all six categories in one row. At 600px and below, the navigation collapses into a menu, the hero text reflows, categories use three columns and the About section stacks. At 360px and below, categories use two columns.
+For a fresh copy without dependencies:
 
-Home, Products and About navigate to sections. Category cards and View All Products open browsable dialogs. Services and Contact show information dialogs. Native dialogs provide keyboard focus containment and Escape dismissal; clicking outside a dialog also dismisses it. A skip link, visible focus indicators and reduced-motion styles support accessibility.
+```sh
+npm install framer-motion lucide-react clsx tailwind-merge
+npm install -D tailwindcss @tailwindcss/vite
+```
 
-The reference supplies no phone number or detailed inventory. Call Us opens the contact dialog until a verified phone number can be configured. Category dialogs provide general product information without inventing prices or availability.
+This project already has a manually configured shadcn structure. Add future components with:
 
-## Validation
+```sh
+npx shadcn@latest add button
+```
 
-The production build and ESLint pass. Visual browser verification was unavailable because no browser was connected. The storefront image remains limited to the resolution of the reference screenshot.
+For a separate unconfigured Vite project, use `npx shadcn@latest init` after setting up Tailwind and the `@/` alias. Running init again here is unnecessary.
+
+Setup follows the official [Tailwind Vite guide](https://tailwindcss.com/docs/installation/using-vite) and [shadcn components.json configuration](https://ui.shadcn.com/docs/components-json).
+
+## Testimonial integration
+
+```tsx
+import TestimonialsSection, { type Testimonial } from '@/components/ui/testimonial-v2'
+
+const reviews: Testimonial[] = [
+  { text: 'Your approved review text', name: 'Customer name', role: 'Equipment category', image: '/images/customer.jpg' },
+]
+
+<TestimonialsSection testimonials={reviews} sampleContent={false} />
+```
+
+Optional props: `id`, `title`, `description`, `sampleContent`, and `showThemeToggle`. All state is local. The default reviews are explicitly labeled illustrative copy with Unsplash stock portraits; replace them with approved customer feedback before publishing. Broken portraits are hidden without affecting the review text.
+
+The component displays one animated column on mobile, two on medium screens, and three on large screens. Identical duplicated groups maintain a seamless loop. Hover pauses the columns; a keyboard-accessible pause/resume button preserves their current position. Offscreen and background-tab movement is suspended. Reduced-motion users get all reviews as static, unmasked cards without duplicate groups. Duplicate groups are hidden from screen readers. The optional dark theme is scoped to the section and does not change the rest of the site.
+
+## Assets and contact details
+
+Original logo, hero and equipment images are in `assets/`. The optimized tractor banner is `assets/field-banner.jpg`; the original is preserved. The storefront photo is `public/images/store.png`.
+
+No backend, phone number, detailed inventory or verified customer reviews were supplied. Contact and category dialogs provide general information without inventing prices or availability.

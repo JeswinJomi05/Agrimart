@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import logo from '../assets/Agrimart Green Leaf Logo.png'
 import hero from '../assets/Hero landscape.png'
 import agricultural from '../assets/Product image.png'
@@ -9,6 +9,7 @@ import engines from '../assets/Product image-4.png'
 import other from '../assets/Product image-5.png'
 import field from '../assets/field-banner.jpg'
 import './App.css'
+import TestimonialsSection from './components/ui/testimonial-v2'
 import { useScrollMotion } from './hooks/useScrollMotion'
 
 const categories = [
@@ -115,7 +116,6 @@ function App() {
       <main id="main-content">
         <section className="hero" aria-labelledby="hero-title">
           <img key={slide} className="hero-artwork" src={slides[slide].image} alt={slides[slide].alt} fetchPriority="high" />
-          <a className="catalog-tab" href="#products">Explore the catalog <ArrowIcon /></a>
           <div className="hero-topline"><span>AGRIMART / WAYANAD</span><span className="hero-tag">Your local equipment partner</span></div>
           <div className="hero-content" key={`content-${slide}`}>
             <p className="eyebrow">{slides[slide].label}</p>
@@ -129,7 +129,7 @@ function App() {
           <div className="hero-bottom"><span>GROW WITH CONFIDENCE</span><div className="slide-controls"><button aria-label="Previous banner" onClick={() => setSlide((slide + 1) % slides.length)}>←</button>{slides.map((_, index) => <button className={`slide-dot ${slide === index ? 'selected' : ''}`} key={index} aria-label={`Show banner ${index + 1}`} aria-pressed={slide === index} onClick={() => setSlide(index)} />)}<button aria-label="Next banner" onClick={() => setSlide((slide + 1) % slides.length)}>→</button></div><span>0{slide + 1} / 02</span></div>
         </section>
 
-        <div className="trust-strip"><span><b>01</b> Expert product guidance</span><span><b>02</b> Equipment for every task</span><span><b>03</b> Local service & support</span><span><b>04</b> Serving Wayanad since 2010</span></div>
+        <a className="catalog-tab" href="#products">Explore the catalog <ArrowIcon /></a>
 
         <section className="highlights section-container" aria-labelledby="highlights-title">
           <div className="section-heading" data-reveal><div><p className="section-label">Ready for the work ahead</p><h2 id="highlights-title">A tool for every ambition.</h2></div><span className="heading-note">From your backyard to your biggest field.</span></div>
@@ -179,28 +179,8 @@ function App() {
           </div>
         </section>
 
-        <section className="reviews section-container" id="reviews" aria-labelledby="reviews-title">
-          <div className="reviews-heading" data-reveal>
-            <p className="section-label">Our Community</p>
-            <h2 id="reviews-title">Good equipment. Better experiences.</h2>
-            <p className="reviews-intro">From the first enquiry to ongoing care, your experience matters to us.</p>
-            <span className="sample-label">Sample reviews · illustrative content</span>
-          </div>
-          <div className="review-grid">
-            {[
-              { initials: 'FA', name: 'Farm equipment customer', type: 'Agricultural machinery', quote: 'The team took the time to understand what I needed for my farm and helped me find the right equipment.' },
-              { initials: 'GA', name: 'Garden equipment customer', type: 'Garden & cutting tools', quote: 'Helpful advice, a straightforward experience and practical guidance on using and caring for my new tools.' },
-              { initials: 'WA', name: 'Water pump customer', type: 'Water & irrigation', quote: 'It is reassuring to have a local team to turn to for advice and support when choosing equipment.' },
-            ].map(review => (
-              <article className="review-card" data-reveal key={review.initials}>
-                <div className="review-stars" aria-label="Sample rating: 5 out of 5 stars">★★★★★</div>
-                <blockquote>“{review.quote}”</blockquote>
-                <div className="review-author"><span className="review-avatar" aria-hidden="true">{review.initials}</span><div><h3>{review.name}</h3><p>{review.type}</p></div></div>
-              </article>
-            ))}
-          </div>
-          <div className="review-invitation" data-reveal><p>Have a question about your next purchase?</p><button className="text-button" onClick={() => openPanel('contact')}>Talk to our team <ArrowIcon /></button></div>
-        </section>
+        <TestimonialsSection />
+        <div className="review-invitation section-container"><p>Have a question about your next purchase?</p><button className="text-button" onClick={() => openPanel('contact')}>Talk to our team <ArrowIcon /></button></div>
       </main>
 
       <footer className="site-footer">
